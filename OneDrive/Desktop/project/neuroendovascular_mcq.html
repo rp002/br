@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCQ Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .question {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .options button {
+            background-color: #0056d2;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .options button:hover {
+            background-color: #003c99;
+        }
+        .explanation {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e6f7ff;
+            border-left: 5px solid #0056d2;
+            text-align: left;
+            display: none;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .navigation button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .navigation button:hover {
+            background-color: #0056d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question-container">
+            <h2 id="question-number"></h2>
+            <div class="question" id="question-text"></div>
+            <div class="options" id="options-container"></div>
+            <div class="explanation" id="explanation-container"></div>
+        </div>
+        <div class="navigation">
+            <button id="prev-btn">Previous</button>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "A 65-year-old male presents with sudden onset of right-sided weakness and aphasia. His symptoms began 2 hours ago. Non-contrast CT scan of the head shows no hemorrhage. What is the next best step in management?",
+                options: [
+                    "Administer intravenous tissue plasminogen activator (tPA)",
+                    "Perform mechanical thrombectomy",
+                    "Administer aspirin",
+                    "Order a CT angiogram"
+                ],
+                correctAnswer: 0,
+                explanation: "Intravenous tPA is the standard treatment for acute ischemic stroke if administered within 4.5 hours of symptom onset, provided there are no contraindications."
+            },
+            {
+                question: "A 50-year-old female with a history of hypertension presents with a severe headache described as 'the worst headache of her life.' CT scan reveals a subarachnoid hemorrhage. What is the most appropriate initial management?",
+                options: [
+                    "Administer nimodipine",
+                    "Prepare for surgical clipping",
+                    "Initiate seizure prophylaxis",
+                    "Initiate blood pressure control and prepare for cerebral angiography"
+                ],
+                correctAnswer: 3,
+                explanation: "Initial management of subarachnoid hemorrhage includes stabilizing the patient, controlling blood pressure, and identifying the source of bleeding, typically through cerebral angiography."
+            }
+            // Add more questions here
+        ];
+
+        let currentQuestionIndex = 0;
+
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const explanationContainer = document.getElementById("explanation-container");
+        const questionNumber = document.getElementById("question-number");
+
+        function loadQuestion(index) {
+            const question = questions[index];
+            questionNumber.textContent = `Question ${index + 1} of ${questions.length}`;
+            questionText.textContent = question.question;
+            optionsContainer.innerHTML = "";
+            explanationContainer.style.display = "none";
+            explanationContainer.textContent = "";
+
+            question.options.forEach((option, i) => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(i, question.correctAnswer, question.explanation);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selected, correct, explanation) {
+            if (selected === correct) {
+                alert("Correct!");
+            } else {
+                alert("Incorrect!");
+            }
+            explanationContainer.style.display = "block";
+            explanationContainer.textContent = `Explanation: ${explanation}`;
+        }
+
+        document.getElementById("next-btn").onclick = () => {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+            }
+        };
+
+        document.getElementById("prev-btn").onclick = () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+            }
+        };
+
+        // Load the first question
+        loadQuestion(currentQuestionIndex);
+    </script>
+</body>
+</html>

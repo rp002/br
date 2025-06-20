@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .exit-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .exit-button:hover {
+            background-color: #cc0000;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #003c99;
+            margin-bottom: 20px;
+        }
+
+        .specialties {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .specialty {
+            flex: 1;
+            max-width: 300px;
+            padding: 20px;
+            background-color: #ffffff;
+            border: 1px solid #e0e6ed;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .specialty:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .specialty img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            background-color: #f5f7fa;
+            padding: 10px;
+        }
+
+        .specialty h3 {
+            font-size: 1.2rem;
+            color: #003c99;
+        }
+
+        @media (max-width: 768px) {
+            .specialties {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEiEmJI1pLG3XZhvUsglrSedt_Ygg7qaE",
+            authDomain: "neuroboard-b83c5.firebaseapp.com",
+            projectId: "neuroboard-b83c5",
+            storageBucket: "neuroboard-b83c5.firebasestorage.app",
+            messagingSenderId: "28246879024",
+            appId: "1:28246879024:web:b2369b882c735ab0fb36f5"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function redirectToLogin(specialty) {
+            // Redirect to login page for the specific specialty
+            auth.onAuthStateChanged(user => {
+                if (user) {
+                    // If logged in, redirect to MCQ page
+                    window.location.href = `vascular_neurology_mcq   `;
+                } else {
+                    // Redirect to login page
+                    window.location.href = `neuroendovascular_surgery_mcq`;
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <button class="exit-button" onclick="window.location.href='index.html'">Exit</button>
+        <h1>Choose Your Specialty</h1>
+        <div class="specialties">
+            <div class="specialty" onclick="redirectToLogin('vascular_neurology')">
+                <img src="images/CT logo.jpg" alt="CT Head Logo">
+                <h3>Vascular Neurology</h3>
+            </div>
+            <div class="specialty" onclick="redirectToLogin('neuroendovascular_surgery')">
+                <img src="images/angio logo.jpg" alt="Angio Logo">
+                <h3>Neuroendovascular Surgery</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

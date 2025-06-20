@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #003c99;
+        }
+
+        .option {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #f1f1f1;
+        }
+
+        .option label {
+            font-size: 1.2rem;
+        }
+
+        .option input {
+            margin-left: 10px;
+        }
+
+        .pay-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #0056D2;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .pay-button:hover {
+            background-color: #003c99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your QBank</h1>
+
+        <div class="option">
+            <label for="vascular">Vascular Neurology QBank</label>
+            <input type="radio" id="vascular" name="qbank" value="vascular">
+        </div>
+
+        <div class="option">
+            <label for="neuroendovascular">Neuroendovascular Surgery QBank</label>
+            <input type="radio" id="neuroendovascular" name="qbank" value="neuroendovascular">
+        </div>
+
+        <button class="pay-button" onclick="proceedToPayment()">Proceed to Payment</button>
+    </div>
+
+    <script>
+        function proceedToPayment() {
+            const selectedOption = document.querySelector('input[name="qbank"]:checked');
+
+            if (!selectedOption) {
+                alert('Please select a QBank option before proceeding.');
+                return;
+            }
+
+            const qbank = selectedOption.value;
+
+            // Redirect to payment gateway based on the selected QBank
+            if (qbank === 'vascular') {
+                window.location.href = 'https://paymentgateway.com/vascular-neurology';
+            } else if (qbank === 'neuroendovascular') {
+                window.location.href = 'https://paymentgateway.com/neuroendovascular-surgery';
+            }
+        }
+    </script>
+</body>
+</html>
